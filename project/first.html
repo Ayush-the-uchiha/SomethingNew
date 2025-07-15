@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Be Mine?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffc0cb;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .heart-bg {
+      position: absolute;
+      width: 300px;
+      height: 270px;
+      background: red;
+      opacity: 0.3;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      z-index: 0;
+    }
+
+    .heart-bg::before, .heart-bg::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 270px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart-bg::before { top: -150px; left: 0; }
+    .heart-bg::after { left: 150px; top: 0; }
+
+    .message {
+      z-index: 1;
+      font-size: 2em;
+      color: #d6336c;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      max-width: 90%;
+      text-align: center;
+      min-height: 150px;
+    }
+
+    .typewriter-text {
+      border-right: 2px solid #d6336c;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .buttons {
+      margin-top: 20px;
+      z-index: 1;
+    }
+
+    .btn {
+      font-size: 1.2em;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-yes {
+      background-color: #ff69b4;
+      color: white;
+    }
+
+    .btn-no {
+      background-color: #fff;
+      color: #d6336c;
+      border: 2px solid #d6336c;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      animation: confetti 1s ease-out forwards;
+    }
+
+    @keyframes confetti {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(300px) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: red;
+      animation: floatHearts 5s linear infinite;
+      font-size: 24px;
+      z-index: 0;
+      opacity: 0.6;
+      border:2px solid red;
+    }
+
+    @keyframes floatHearts {
+      0% { bottom: 0; transform: translateX(0) scale(1); }
+      100% { bottom: 100%; transform: translateX(-50px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart-bg"></div>
+
+  <!-- Floating Hearts -->
+  <script>
+    for (let i = 0; i < 30; i++) {
+      let heart = document.createElement("div");
+      heart.classList.add("floating-heart");
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw"; //vw means "viewport width" ie="width:100vw"
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      heart.style.fontSize = (16 + Math.random() * 24) + "px";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <!-- Typing Message -->
+  <div class="message">
+    <div class="typewriter-text">
+      Hey beautiful 🌸 I have something special to ask... 💬<br>
+      Will you be mine forever? 💖💍
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="btn btn-yes" onclick="sayYes()">Yes 💕</button>
+    <button class="btn btn-no" onclick="alert('Aww... maybe next time 😔')">No 😔</button>
+  </div>
+
+  <script>
+    function sayYes() {
+      alert('Yay! You said YES! 💕💑');
+      for (let i = 0; i < 100; i++) {
+        let confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        confetti.style.animationDuration = 1 + Math.random() + "s";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2000);
+      }
+      
+      setTimeout(() => {
+        window.location.href = "secondd.html"; // 👈 secret shayari page
+      }, 2000);
+    }
+    // <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi sequi aliquid dolores quis impedit laudantium, optio laboriosam incidunt deleniti debitis dolore voluptatibus nisi facilis architecto tempore eius ullam culpa ut ipsum. Reprehenderit vero at molestias harum culpa fugiat illum necessitatibus quia voluptatibus accusamus quo assumenda eaque, suscipit praesentium voluptate in ex sunt. Molestias exercitationem ducimus delectus autem ab voluptas vitae libero, laudantium quo aperiam neque, tenetur sequi obcaecati ipsum quod est rem? Nostrum quidem similique numquam omnis doloremque possimus minima fuga dolor a explicabo rerum optio eaque, reprehenderit perferendis eius aliquam facere dignissimos ea quisquam sunt minus. Eaque, harum quam. -->
+    
+  </script>
+</body>
+</html>
