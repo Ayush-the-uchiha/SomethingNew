@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(203, 201, 201);
+        }
+        .container{
+            width: 240px;
+            height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        input{
+            height: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" name="speech" id="speech" placeholder="Enter text">
+        <button id="btn" onclick="speaking()">Click me</button>
+    </div>
+
+    <script>
+        function speaking(){
+            let msg = document.getElementById("speech").value;
+
+            if ('speechSynthesis' in window) {
+                let speech = new SpeechSynthesisUtterance(msg);
+                speech.lang = "en-US";
+                speech.pitch = 1;
+                speech.rate = 1;
+                speech.volume = 1;
+
+                // Get available voices
+                let voices = window.speechSynthesis.getVoices();
+                console.log(speechSynthesis.getVoices().forEach(v => console.log(v.name, v.lang)));
+                // Pick a specific voice by name (if available)
+                let selectedVoice = voices.find(voice => voice.name.includes("Google UK English Female") );
+
+                // Set the selected voice if found
+                if (selectedVoice) {
+                    speech.voice = selectedVoice;
+                }
+
+                // Speak the text
+                window.speechSynthesis.speak(speech);
+            } else {
+                alert("Sorry, your browser does not support text-to-speech!");
+            }
+        }
+
+        // Important: load voices first (some browsers load them asynchronously)
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+
+        // following code is used to check all the voices
+        // speechSynthesis.getVoices().forEach(v => console.log(v.name, v.lang));
+
+    </script>
+</body>
+</html>
